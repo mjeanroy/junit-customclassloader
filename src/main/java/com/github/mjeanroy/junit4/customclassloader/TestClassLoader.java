@@ -30,6 +30,27 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Annotation to use to inject {@link ClassLoader} or {@link CustomClassLoaderHolder} to
+ * your unit tests.
+ *
+ * For example:
+ *
+ * <pre><code>
+ *   &#064;RunWith(CustomClassLoaderRuner.class)
+ *   public class MyTest {
+ *
+ *     // Get the server
+ *     &#064;TestClassLoader
+ *     private CustomClassLoaderHolder cl;
+ *
+ *     &#064;Test
+ *     public void test() {
+ *       Assert.assertNotNull(cl);
+ *     }
+ *   }
+ * </code></pre>
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @Documented
