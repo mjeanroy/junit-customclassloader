@@ -31,7 +31,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to use to inject {@link ClassLoader} or {@link CustomClassLoaderHolder} to
+ * Annotation to use to inject {@link ClassLoader} or {@link ClassLoaderHolder} to
  * your unit tests.
  *
  * For example:
@@ -42,7 +42,7 @@ import java.lang.annotation.Target;
  *
  *     // Get the server
  *     &#064;TestClassLoader
- *     private CustomClassLoaderHolder cl;
+ *     private ClassLoaderHolder cl;
  *
  *     &#064;Test
  *     public void test() {

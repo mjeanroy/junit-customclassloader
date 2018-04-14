@@ -24,12 +24,12 @@
 
 package com.github.mjeanroy.junit4.customclassloader.impl;
 
-import com.github.mjeanroy.junit4.customclassloader.CustomClassLoaderHolder;
+import com.github.mjeanroy.junit4.customclassloader.ClassLoaderHolder;
 
 /**
- * Implementation of {@link CustomClassLoaderHolder} that will load {@link BlackListClassLoader} instance.
+ * Implementation of {@link ClassLoaderHolder} that will load {@link BlackListClassLoader} instance.
  */
-public class BlackListClassLoaderHolder implements CustomClassLoaderHolder {
+public class BlackListClassLoaderHolder implements ClassLoaderHolder {
 	/**
 	 * The {@link BlackListClassLoader} instance.
 	 */

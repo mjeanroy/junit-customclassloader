@@ -8,9 +8,9 @@ import org.junit.rules.TestRule;
 
 class ClassLoaderInjectionRule extends ExternalResource implements TestRule {
 	private final Object target;
-	private final CustomClassLoaderHolder classLoaderHolder;
+	private final ClassLoaderHolder classLoaderHolder;
 
-	ClassLoaderInjectionRule(Object target, CustomClassLoaderHolder classLoaderHolder) {
+	ClassLoaderInjectionRule(Object target, ClassLoaderHolder classLoaderHolder) {
 		this.target = target;
 		this.classLoaderHolder = classLoaderHolder;
 	}
@@ -39,11 +39,11 @@ class ClassLoaderInjectionRule extends ExternalResource implements TestRule {
 		if (ClassLoader.class.isAssignableFrom(type)) {
 			Reflections.setter(target, field, classLoaderHolder.get());
 		}
-		else if (CustomClassLoaderHolder.class.isAssignableFrom(type)) {
+		else if (ClassLoaderHolder.class.isAssignableFrom(type)) {
 			Reflections.setter(target, field, classLoaderHolder);
 		}
 		else {
-			throw new IllegalStateException("Cannot set field '" + field.getName() + "', it should be an instance of '" + ClassLoader.class.getName() + "' or '" + CustomClassLoaderHolder.class.getName() + "'.");
+			throw new IllegalStateException("Cannot set field '" + field.getName() + "', it should be an instance of '" + ClassLoader.class.getName() + "' or '" + ClassLoaderHolder.class.getName() + "'.");
 		}
 	}
 

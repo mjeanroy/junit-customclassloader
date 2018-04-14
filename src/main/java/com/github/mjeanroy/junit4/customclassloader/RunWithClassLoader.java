@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
  * Annotation that must be used with {@link CustomClassLoaderRunner} runner.
  * This annotation will specify the custom classloader to use during the unit test suite.
  *
- * Note that this annotation specify a {@link CustomClassLoaderHolder} that will:
+ * Note that this annotation specify a {@link ClassLoaderHolder} that will:
  * <ul>
  *   <li>Create the classloader instance to use.</li>
  *   <li>Implement methods to run custom initialization/cleanup before/after each tests.</li>
@@ -51,5 +51,5 @@ public @interface RunWithClassLoader {
 	 *
 	 * @return The classloader holder to use.
 	 */
-	Class<? extends CustomClassLoaderHolder> value();
+	Class<? extends ClassLoaderHolder> value();
 }

@@ -38,7 +38,7 @@ public class ClassLoaderRuleTest {
 
 	@Test
 	public void it_should_run_class_loader_holder_initialization() {
-		CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		ClassLoaderRule rule = new ClassLoaderRule(holder);
 		rule.before();
 		verify(holder).beforeTest();
@@ -46,7 +46,7 @@ public class ClassLoaderRuleTest {
 
 	@Test
 	public void it_should_run_class_loader_holder_cleanup() {
-		CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		ClassLoaderRule rule = new ClassLoaderRule(holder);
 		rule.after();
 		verify(holder).afterTest();
@@ -54,7 +54,7 @@ public class ClassLoaderRuleTest {
 
 	@Test
 	public void it_should_run_class_loader_holder_initialization_and_cleanup() throws Throwable {
-		CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		ClassLoaderRule rule = new ClassLoaderRule(holder);
 		Description description = Description.createTestDescription(ClassLoaderRuleTest.class, "it_should_run_class_loader_holder_initialization_and_cleanup");
 		Statement statement = mock(Statement.class);

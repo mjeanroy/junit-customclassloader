@@ -46,7 +46,7 @@ public class ClassLoaderInjectionRuleTest {
 
 	@Test
 	public void it_should_inject_class_loader_holder_before_test() {
-		CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		CustomClassLoaderHolderInjection target = new CustomClassLoaderHolderInjection();
 		ClassLoaderInjectionRule rule = new ClassLoaderInjectionRule(target, holder);
 
@@ -58,7 +58,7 @@ public class ClassLoaderInjectionRuleTest {
 	@Test
 	public void it_should_inject_class_loader_before_test() {
 		ClassLoader classLoader = mock(ClassLoader.class);
-		CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		when(holder.get()).thenReturn(classLoader);
 
 		CustomClassLoaderInjection target = new CustomClassLoaderInjection();
@@ -72,19 +72,19 @@ public class ClassLoaderInjectionRuleTest {
 
 	@Test
 	public void it_should_fail_to_inject_class_with_inappropriate_type() {
-		CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		CustomClassWithInappropriateType target = new CustomClassWithInappropriateType();
 		ClassLoaderInjectionRule rule = new ClassLoaderInjectionRule(target, holder);
 
 		thrown.expect(IllegalStateException.class);
-		thrown.expectMessage("Cannot set field 'foo', it should be an instance of 'java.lang.ClassLoader' or 'com.github.mjeanroy.junit4.customclassloader.CustomClassLoaderHolder'.");
+		thrown.expectMessage("Cannot set field 'foo', it should be an instance of 'java.lang.ClassLoader' or 'com.github.mjeanroy.junit4.customclassloader.ClassLoaderHolder'.");
 
 		rule.before();
 	}
 
 	@Test
 	public void it_should_clean_loader_holder_after_test() {
-		CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		CustomClassLoaderHolderInjection target = new CustomClassLoaderHolderInjection();
 		target.holder = holder;
 		ClassLoaderInjectionRule rule = new ClassLoaderInjectionRule(target, holder);
@@ -97,7 +97,7 @@ public class ClassLoaderInjectionRuleTest {
 	@Test
 	public void it_should_clean_loader_after_test() {
 		ClassLoader classLoader = mock(ClassLoader.class);
-		CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		CustomClassLoaderInjection target = new CustomClassLoaderInjection();
 		target.classLoader = classLoader;
 		ClassLoaderInjectionRule rule = new ClassLoaderInjectionRule(target, holder);
@@ -111,7 +111,7 @@ public class ClassLoaderInjectionRuleTest {
 	@Test
 	public void it_should_inject_class_loader_and_clean_it_test() throws Throwable {
 		final ClassLoader classLoader = mock(ClassLoader.class);
-		final CustomClassLoaderHolder holder = mock(CustomClassLoaderHolder.class);
+		final ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
 		when(holder.get()).thenReturn(classLoader);
 
 		final CustomClassLoaderAndHolderInjection target = new CustomClassLoaderAndHolderInjection();
@@ -142,7 +142,7 @@ public class ClassLoaderInjectionRuleTest {
 
 	private static class CustomClassLoaderHolderInjection {
 		@TestClassLoader
-		private CustomClassLoaderHolder holder;
+		private ClassLoaderHolder holder;
 	}
 
 	private static class CustomClassLoaderInjection {
@@ -155,7 +155,7 @@ public class ClassLoaderInjectionRuleTest {
 		private ClassLoader classLoader;
 
 		@TestClassLoader
-		private CustomClassLoaderHolder holder;
+		private ClassLoaderHolder holder;
 	}
 
 	private static class CustomClassWithInappropriateType {

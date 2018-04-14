@@ -39,7 +39,7 @@ public class CustomClassLoaderRunner extends BlockJUnit4ClassRunner {
 	/**
 	 * The classloader holder that will be able to load a custom classloader.
 	 */
-	private final CustomClassLoaderHolder classLoaderHolder;
+	private final ClassLoaderHolder classLoaderHolder;
 
 	/**
 	 * Create the JUnit runner.

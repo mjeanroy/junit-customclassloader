@@ -30,7 +30,7 @@ package com.github.mjeanroy.junit4.customclassloader;
  * This class should be able to return a classloader and execute code before
  * and after test.
  */
-public interface CustomClassLoaderHolder {
+public interface ClassLoaderHolder {
 
 	/**
 	 * The method to execute custom initialization on the classloader before each test.

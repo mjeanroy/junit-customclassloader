@@ -4,9 +4,9 @@ import org.junit.rules.ExternalResource;
 import org.junit.rules.TestRule;
 
 class ClassLoaderRule extends ExternalResource implements TestRule {
-	private final CustomClassLoaderHolder classLoaderHolder;
+	private final ClassLoaderHolder classLoaderHolder;
 
-	ClassLoaderRule(CustomClassLoaderHolder classLoaderHolder) {
+	ClassLoaderRule(ClassLoaderHolder classLoaderHolder) {
 		this.classLoaderHolder = classLoaderHolder;
 	}
 
