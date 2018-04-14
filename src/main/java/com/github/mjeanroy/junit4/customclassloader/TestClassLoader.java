@@ -37,12 +37,13 @@ import java.lang.annotation.Target;
  * For example:
  *
  * <pre><code>
- *   &#064;RunWith(CustomClassLoaderRuner.class)
+ *   &#064;RunWith(CustomClassLoaderRunner.class)
+ *   &#064;RunWithClassLoader(MyCustomClassLoaderHolder.class)
  *   public class MyTest {
  *
  *     // Get the server
  *     &#064;TestClassLoader
- *     private ClassLoaderHolder cl;
+ *     private MyCustomClassLoaderHolder cl;
  *
  *     &#064;Test
  *     public void test() {
