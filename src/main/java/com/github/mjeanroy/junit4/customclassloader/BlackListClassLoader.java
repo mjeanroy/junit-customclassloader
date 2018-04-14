@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.github.mjeanroy.junit4.customclassloader.impl;
+package com.github.mjeanroy.junit4.customclassloader;
 
 import java.util.HashSet;
 import java.util.Set;

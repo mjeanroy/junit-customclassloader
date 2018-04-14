@@ -28,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import com.github.mjeanroy.junit4.customclassloader.impl.BlackListClassLoaderHolder;
 import org.assertj.core.api.Condition;
 import org.junit.Rule;
 import org.junit.Test;

@@ -22,44 +22,51 @@
  * THE SOFTWARE.
  */
 
-package com.github.mjeanroy.junit4.customclassloader.impl;
+package com.github.mjeanroy.junit4.customclassloader;
 
-import static org.assertj.core.api.Assertions.assertThat;
+/**
+ * Implementation of {@link ClassLoaderHolder} that will load {@link BlackListClassLoader} instance.
+ */
+public class BlackListClassLoaderHolder implements ClassLoaderHolder {
+	/**
+	 * The {@link BlackListClassLoader} instance.
+	 */
+	private final BlackListClassLoader classLoader;
 
-import org.junit.Before;
-import org.junit.Test;
-
-public class BlackListClassLoaderTest {
-
-	private BlackListClassLoader classLoader;
-
-	@Before
-	public void setUp() {
-		this.classLoader = new BlackListClassLoader(currentClassLoader());
+	/**
+	 * Create the holder.
+	 */
+	public BlackListClassLoaderHolder() {
+		this.classLoader = new BlackListClassLoader(Thread.currentThread().getContextClassLoader());
 	}
 
-	@Test
-	public void it_should_load_class() throws Exception {
-		String name = "com.github.mjeanroy.junit4.customclassloader.fixtures.ChildClassAnnotated";
-		assertThat(classLoader.loadClass(name)).isNotNull();
+	@Override
+	public void beforeTest() {
 	}
 
-	@Test(expected = ClassNotFoundException.class)
-	public void it_should_not_load_class_blacklisted_class() throws Exception {
-		String name = "com.github.mjeanroy.junit4.customclassloader.fixtures.ChildClassAnnotated";
-		classLoader.add(name);
-		classLoader.loadClass(name);
-	}
-
-	@Test
-	public void it_should_clear_blacklist() throws Exception {
-		String name = "com.github.mjeanroy.junit4.customclassloader.fixtures.ChildClassAnnotated";
-		classLoader.add(name);
+	@Override
+	public void afterTest() {
 		classLoader.clear();
-		assertThat(classLoader.loadClass(name)).isNotNull();
 	}
 
-	private ClassLoader currentClassLoader() {
-		return Thread.currentThread().getContextClassLoader();
+	@Override
+	public ClassLoader get() {
+		return classLoader;
+	}
+
+	/**
+	 * Clear class blacklist.
+	 */
+	public void clearBlackList() {
+		classLoader.clear();
+	}
+
+	/**
+	 * Add blacklisted class.
+	 *
+	 * @param name Class name.
+	 */
+	public void addToBlackList(String name) {
+		classLoader.add(name);
 	}
 }

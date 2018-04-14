@@ -5,7 +5,7 @@ import com.github.mjeanroy.junit4.customclassloader.RunWithClassLoader;
 import com.github.mjeanroy.junit4.customclassloader.TestClassLoader;
 import com.github.mjeanroy.junit4.customclassloader.fixtures.ChildClassAnnotated;
 import com.github.mjeanroy.junit4.customclassloader.fixtures.ParentClassAnnotated;
-import com.github.mjeanroy.junit4.customclassloader.impl.BlackListClassLoaderHolder;
+import com.github.mjeanroy.junit4.customclassloader.BlackListClassLoaderHolder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
