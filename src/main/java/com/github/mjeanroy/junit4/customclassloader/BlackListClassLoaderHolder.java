@@ -36,7 +36,7 @@ public class BlackListClassLoaderHolder implements ClassLoaderHolder {
 	/**
 	 * Create the holder.
 	 */
-	public BlackListClassLoaderHolder() {
+	BlackListClassLoaderHolder() {
 		this.classLoader = new BlackListClassLoader(Thread.currentThread().getContextClassLoader());
 	}
 
