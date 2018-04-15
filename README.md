@@ -91,14 +91,16 @@ import com.github.mjeanroy.junit4.customclassloader.TestClassLoader;
 @RunWith(CustomClassLoaderRunner.class)
 @RunWithClassLoader(BlackListClassLoaderHolder.class)
 public class MyUnitTest {
-  @TestClassLoader
-  private BlackListClassLoader classLoader;
-
   @Test
   public void it_should_load_default_impl() {
-    classLoader.add("com.org.my.optional.dependency");
-
+    getClassLoader().add("com.org.my.optional.dependency");
     Assert.asserEquals(MyFactory.create().getClass(), MyDefaultImpl.class);
+  }
+
+  private BlackListClassLoader getClassLoader() {
+    // With the CustomClassLoaderRunner, each test is runned in its own thread, so it is safe
+    // to get the current thread classloader like this.
+    return (BlackListClassLoader) Thread.currentThread().getContextClassLoader();
   }
 }
 ```
