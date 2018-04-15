@@ -37,7 +37,7 @@ class ClassLoaderInjectionRule extends ExternalResource implements TestRule {
 		Class<?> type = field.getType();
 
 		if (ClassLoader.class.isAssignableFrom(type)) {
-			Reflections.setter(target, field, classLoaderHolder.get());
+			Reflections.setter(target, field, Thread.currentThread().getContextClassLoader());
 		}
 		else if (ClassLoaderHolder.class.isAssignableFrom(type)) {
 			Reflections.setter(target, field, classLoaderHolder);

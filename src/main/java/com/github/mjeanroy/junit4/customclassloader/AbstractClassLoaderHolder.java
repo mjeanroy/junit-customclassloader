@@ -25,18 +25,37 @@
 package com.github.mjeanroy.junit4.customclassloader;
 
 /**
- * Implementation of {@link ClassLoaderHolder} that will load {@link BlackListClassLoader} instance.
+ * Template implementation of {@link ClassLoaderHolder}.
+ * The only method to implement is {@link ClassLoaderHolder#get()}.
+ * Note that the parent classloader can be obtained using the {@link #getParentClassLoader()} method.
  */
-public class BlackListClassLoaderHolder extends AbstractClassLoaderHolder implements ClassLoaderHolder {
+public abstract class AbstractClassLoaderHolder implements ClassLoaderHolder {
+	/**
+	 * The parent {@link ClassLoader} instance.
+	 */
+	private final ClassLoader parentClassLoader;
+
 	/**
 	 * Create the holder.
 	 */
-	BlackListClassLoaderHolder() {
-		super();
+	protected AbstractClassLoaderHolder() {
+		this.parentClassLoader = Thread.currentThread().getContextClassLoader();
 	}
 
 	@Override
-	public ClassLoader get() {
-		return new BlackListClassLoader(getParentClassLoader());
+	public void beforeTest() {
+	}
+
+	@Override
+	public void afterTest() {
+	}
+
+	/**
+	 * Get the parent classloader, detected during holder creation.
+	 *
+	 * @return Parent class loader.
+	 */
+	public ClassLoader getParentClassLoader() {
+		return parentClassLoader;
 	}
 }

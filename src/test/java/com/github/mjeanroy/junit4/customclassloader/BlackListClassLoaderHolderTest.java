@@ -26,7 +26,6 @@ package com.github.mjeanroy.junit4.customclassloader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.github.mjeanroy.junit4.customclassloader.BlackListClassLoaderHolder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,15 +46,17 @@ public class BlackListClassLoaderHolderTest {
 	@Test(expected = ClassNotFoundException.class)
 	public void it_should_not_load_class_blacklisted_class() throws Exception {
 		String name = "com.github.mjeanroy.junit4.customclassloader.fixtures.ChildClassAnnotated";
-		classLoader.addToBlackList(name);
-		classLoader.get().loadClass(name);
+		BlackListClassLoader classLoader = (BlackListClassLoader) this.classLoader.get();
+		classLoader.add(name);
+		classLoader.loadClass(name);
 	}
 
 	@Test
 	public void it_should_clear_blacklist() throws Exception {
 		String name = "com.github.mjeanroy.junit4.customclassloader.fixtures.ChildClassAnnotated";
-		classLoader.addToBlackList(name);
-		classLoader.clearBlackList();
-		assertThat(classLoader.get().loadClass(name)).isNotNull();
+		BlackListClassLoader classLoader = (BlackListClassLoader) this.classLoader.get();
+		classLoader.add(name);
+		classLoader.clear();
+		assertThat(classLoader.loadClass(name)).isNotNull();
 	}
 }

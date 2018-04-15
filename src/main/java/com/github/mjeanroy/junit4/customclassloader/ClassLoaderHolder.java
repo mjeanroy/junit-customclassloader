@@ -44,8 +44,6 @@ public interface ClassLoaderHolder {
 
 	/**
 	 * This method returns the custom classloader instance.
-	 * Note that it is important to return always the same classloader, this method should not create a new classloader
-	 * on each call!
 	 *
 	 * @return The custom classloader.
 	 */

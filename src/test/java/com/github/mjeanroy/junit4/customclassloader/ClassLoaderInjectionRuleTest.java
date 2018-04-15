@@ -27,9 +27,7 @@ package com.github.mjeanroy.junit4.customclassloader;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,17 +55,13 @@ public class ClassLoaderInjectionRuleTest {
 
 	@Test
 	public void it_should_inject_class_loader_before_test() {
-		ClassLoader classLoader = mock(ClassLoader.class);
 		ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
-		when(holder.get()).thenReturn(classLoader);
-
 		CustomClassLoaderInjection target = new CustomClassLoaderInjection();
 		ClassLoaderInjectionRule rule = new ClassLoaderInjectionRule(target, holder);
 
 		rule.before();
 
-		assertThat(target.classLoader).isSameAs(classLoader);
-		verify(holder).get();
+		assertThat(target.classLoader).isSameAs(Thread.currentThread().getContextClassLoader());
 	}
 
 	@Test
@@ -110,17 +104,14 @@ public class ClassLoaderInjectionRuleTest {
 
 	@Test
 	public void it_should_inject_class_loader_and_clean_it_test() throws Throwable {
-		final ClassLoader classLoader = mock(ClassLoader.class);
 		final ClassLoaderHolder holder = mock(ClassLoaderHolder.class);
-		when(holder.get()).thenReturn(classLoader);
-
 		final CustomClassLoaderAndHolderInjection target = new CustomClassLoaderAndHolderInjection();
 		final ClassLoaderInjectionRule rule = new ClassLoaderInjectionRule(target, holder);
 
 		Answer<Object> evaluateAnswer = new Answer<Object>() {
 			@Override
 			public Object answer(InvocationOnMock invocation) {
-				assertThat(target.classLoader).isSameAs(classLoader);
+				assertThat(target.classLoader).isSameAs(Thread.currentThread().getContextClassLoader());
 				assertThat(target.holder).isSameAs(holder);
 				return null;
 			}
@@ -137,7 +128,6 @@ public class ClassLoaderInjectionRuleTest {
 
 		assertThat(target.classLoader).isNull();
 		assertThat(target.holder).isNull();
-		verify(holder).get();
 	}
 
 	private static class CustomClassLoaderHolderInjection {
