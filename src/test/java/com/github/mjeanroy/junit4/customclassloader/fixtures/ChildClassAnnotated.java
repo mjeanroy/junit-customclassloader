@@ -29,6 +29,7 @@ public class ChildClassAnnotated extends ParentClassAnnotated {
 	@CustomFieldAnnotation
 	private String field11;
 
+	@SuppressWarnings("unused")
 	private String field12;
 
 	public String getField11() {

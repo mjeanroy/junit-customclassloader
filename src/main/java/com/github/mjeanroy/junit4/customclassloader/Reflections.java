@@ -28,6 +28,7 @@ import static java.util.Collections.emptyList;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,8 +70,8 @@ final class Reflections {
 	 */
 	static <T> T newInstance(Class<T> klass) {
 		try {
-			return klass.newInstance();
-		} catch (IllegalAccessException | InstantiationException ex) {
+			return klass.getDeclaredConstructor().newInstance();
+		} catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException ex) {
 			throw new IllegalStateException("Cannot instantiate class " + klass.getName() + ". Please ensure there is a public empty constructor.", ex);
 		}
 	}
@@ -110,7 +111,9 @@ final class Reflections {
 	 * @param value The value to set on given field.
 	 */
 	static void setter(Object target, Field field, Object value) {
+		@SuppressWarnings("deprecation")
 		boolean wasAccessible = field.isAccessible();
+
 		try {
 			if (!wasAccessible) {
 				field.setAccessible(true);

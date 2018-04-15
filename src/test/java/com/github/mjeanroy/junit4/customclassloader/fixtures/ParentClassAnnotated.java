@@ -30,5 +30,6 @@ public class ParentClassAnnotated {
 	@CustomFieldAnnotation
 	private String field01;
 
+	@SuppressWarnings("unused")
 	private String field02;
 }

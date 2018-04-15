@@ -58,6 +58,7 @@ public class RunInNewThreadRuleTest {
 		result.evaluate();
 	}
 
+	@SuppressWarnings("serial")
 	private static class CustomRuntimeException extends RuntimeException {
 	}
 }
