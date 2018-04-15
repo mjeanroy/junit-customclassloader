@@ -5,7 +5,7 @@
 	<name>junit-customclassloader</name>
 	<groupId>com.github.mjeanroy</groupId>
 	<artifactId>junit-customclassloader</artifactId>
-	<version>0.1.1</version>
+	<version>0.1.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<url>https://github.com/mjeanroy/junit-customclassloader</url>
 	<description>Run your JUnit 4 tests with a custom classloader.</description>
@@ -23,7 +23,7 @@
 		<developerConnection>scm:git:git@github.com:mjeanroy/junit-customclassloader.git
 		</developerConnection>
 		<url>https://github.com/mjeanroy/junit-customclassloader</url>
-		<tag>junit-customclassloader-0.1.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<developers>
