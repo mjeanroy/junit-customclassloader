@@ -27,7 +27,6 @@ package com.github.mjeanroy.junit4.customclassloader;
 import java.util.List;
 
 import org.junit.rules.TestRule;
-import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
@@ -53,24 +52,11 @@ public class CustomClassLoaderRunner extends BlockJUnit4ClassRunner {
 	}
 
 	@Override
-	public void run(RunNotifier notifier) {
-		// Run test in a new thread, required to execute it on a custom loader.
-		Thread thread = new Thread(new JunitRunnable(notifier));
-		thread.setContextClassLoader(classLoaderHolder.get());
-		thread.start();
-
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
 	protected List<TestRule> getTestRules(Object target) {
 		List<TestRule> testRules = super.getTestRules(target);
-		testRules.add(new ClassLoaderRule(classLoaderHolder));
 		testRules.add(new ClassLoaderInjectionRule(target, classLoaderHolder));
+		testRules.add(new ClassLoaderRule(classLoaderHolder));
+		testRules.add(new RunInNewThreadRule(classLoaderHolder));
 		return testRules;
 	}
 
@@ -83,29 +69,5 @@ public class CustomClassLoaderRunner extends BlockJUnit4ClassRunner {
 	 */
 	private static RunWithClassLoader findAnnotation(Class<?> testClass) {
 		return Reflections.findAnnotation(testClass, RunWithClassLoader.class, "Try to instantiate custom classloader, but cannot find @RunWithClassLoader annotation, please specify it.");
-	}
-
-	/**
-	 * The {@link Runnable} that will run the unit test in the newly created thread.
-	 */
-	private class JunitRunnable implements Runnable {
-		/**
-		 * The {@link RunNotifier} instance.
-		 */
-		private final RunNotifier notifier;
-
-		/**
-		 * Create the runnable.
-		 *
-		 * @param notifier The {@link RunNotifier} instance.
-		 */
-		private JunitRunnable(RunNotifier notifier) {
-			this.notifier = notifier;
-		}
-
-		@Override
-		public void run() {
-			CustomClassLoaderRunner.super.run(notifier);
-		}
 	}
 }

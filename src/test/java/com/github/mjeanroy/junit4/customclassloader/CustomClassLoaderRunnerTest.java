@@ -28,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.assertj.core.api.Condition;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -44,21 +43,11 @@ public class CustomClassLoaderRunnerTest {
 		CustomClassLoaderRunner runner = new CustomClassLoaderRunner(TestFixture.class);
 		TestFixture target = new TestFixture();
 		List<TestRule> rules = runner.getTestRules(target);
+
 		assertThat(rules).isNotEmpty();
-
-		assertThat(rules).areAtLeastOne(new Condition<TestRule>() {
-			@Override
-			public boolean matches(TestRule value) {
-				return value.getClass() == ClassLoaderRule.class;
-			}
-		});
-
-		assertThat(rules).areAtLeastOne(new Condition<TestRule>() {
-			@Override
-			public boolean matches(TestRule value) {
-				return value.getClass() == ClassLoaderInjectionRule.class;
-			}
-		});
+		assertThat(rules.get(0).getClass()).isEqualTo(ClassLoaderInjectionRule.class);
+		assertThat(rules.get(1).getClass()).isEqualTo(ClassLoaderRule.class);
+		assertThat(rules.get(2).getClass()).isEqualTo(RunInNewThreadRule.class);
 	}
 
 	@Test
